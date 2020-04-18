@@ -87,7 +87,7 @@ function renderDefender(defender, player, frame, ctx) {
         ctx.fillStyle = "white"
         ctx.fillRect(x, y - 50, DEFENDER_SIZE, 40)
 
-        ctx.font = "30px Comic Sans MS";
+        ctx.font = '20px "Press Start 2P"';
         ctx.fillStyle = "blue";
         ctx.textAlign = "center";
         ctx.fillText(defender.letters.slice(defender.index,defender.index+5).toUpperCase(), x + DEFENDER_SIZE / 2 , y - 20);
