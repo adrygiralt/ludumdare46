@@ -90,7 +90,7 @@ function renderDefender(defender, player, frame, ctx) {
         ctx.font = "30px Comic Sans MS";
         ctx.fillStyle = "blue";
         ctx.textAlign = "center";
-        ctx.fillText(defender.letters[0].toUpperCase(), x + DEFENDER_SIZE / 2 , y - 20);
+        ctx.fillText(defender.letters.slice(defender.index,defender.index+5).toUpperCase(), x + DEFENDER_SIZE / 2 , y - 20);
       }
   }
 }

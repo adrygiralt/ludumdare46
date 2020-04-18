@@ -65,11 +65,11 @@ class GameState {
       if (this.defenders[d].alive === 0) {
         this.defenders[d].built = false
       }
-      if (distance(this.defenders[d], this.player) <= PLAYER_INTERACTION) {
+      if (distance(this.defenders[d], this.player) <= PLAYER_INTERACTION && this.defenders[d].built) {
         playerNearDefender = true
-        while (buffer.length > 0) {
-          this.defenders[d].gotLetter(buffer[0])
-          buffer.splice(0,1)
+        while (this.buffer.length > 0) {
+          this.defenders[d].gotLetter(this.buffer[0])
+          this.buffer = this.buffer.slice(1)
         }
       }
     }

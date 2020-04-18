@@ -26,8 +26,8 @@ const DEFENDERS = {
   STD: {x: 550, y: 450, color: "white", name: "std", id: 0}
 }
 DEFENDER_SIZE = 100
-DEFENDER_SECONDS_ALIVE = 10
-DEFENDER_MAX_SECONDS_ALIVE = 30
+DEFENDER_SECONDS_ALIVE = 20
+DEFENDER_MAX_SECONDS_ALIVE = 60
 
 DEFENDER_LETTERS = "fjrughtydkeislwoapqvbcnxmz"
 

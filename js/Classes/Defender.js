@@ -8,14 +8,16 @@ class Defender {
   }
 
   gotLetter(c) {
+    if (!this.built) return
     if (c === this.letters[this.index]) {
       this.index++
     }
     else {
       this.index = 0
     }
-    if (index === this.letters.length) {
-      levelUp()
+    if (this.index === this.letters.length) {
+      this.levelUp()
+      this.alive = Math.min(this.alive + DEFENDER_SECONDS_ALIVE * FPS, DEFENDER_MAX_SECONDS_ALIVE * FPS)
     }
   }
 
