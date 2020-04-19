@@ -309,11 +309,45 @@ function renderGameOverText(frame, round, restarting, restartCounter, ctx) {
 
 }
 
+function renderWinText(frame, round, restarting, restartCounter, ctx) {
+  ctx.font = '20px "Press Start 2P"';
+  ctx.fillStyle = "white";
+  ctx.textAlign = "center";
+  ctx.fillText("YOU MADE IT", CANVAS_X / 2 , 300);
+
+  if (frame > 120) {
+    ctx.font = '20px "Press Start 2P"';
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText("YOU BEAT THE FINAL ROUND", CANVAS_X / 2 , 500)
+  }
+
+  if (frame > 180) {
+    ctx.font = '20px "Press Start 2P"';
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText("YOU'RE AWESOME <3", CANVAS_X / 2 , 550)
+  }
+
+  if ( frame > 240 && Math.floor((frame%60)/30) === 0) {
+    ctx.font = '20px "Press Start 2P"';
+    ctx.fillStyle = "white";
+    ctx.textAlign = "center";
+    ctx.fillText("PRESS SPACE TO GO BACK TO MAIN MENU", CANVAS_X / 2 , 600)
+  }
+
+  if (restarting) {
+      ctx.fillStyle = 'rgba(0, 0, 0, ' + (Math.min(restartCounter,100) / 100) + ')'
+      ctx.fillRect(0, 0, CANVAS_X, CANVAS_Y);
+  }
+
+}
+
 function render (gameState, c, ctx) {
   let frame = gameState.frame
   ctx.clearRect(0, 0, c.width, c.height)
 
-  if (gameState.status === GAMESTATUS_PLAY || (gameState.status === GAMESTATUS_OVER && gameState.frame < 150)) {
+  if (gameState.status === GAMESTATUS_PLAY || (gameState.status === GAMESTATUS_OVER && gameState.frame < 150) || (gameState.status === GAMESTATUS_WIN && gameState.frame < 150)) {
     renderBackground(ctx)
 
     renderUi(gameState, ctx)
@@ -327,6 +361,11 @@ function render (gameState, c, ctx) {
     renderViruses(gameState.viruses, frame, ctx)
 
     renderProjectiles(gameState.projectiles, frame, ctx)
+
+    if (gameState.status === GAMESTATUS_WIN) {
+      ctx.fillStyle = 'rgba(0, 0, 0, ' + (Math.min(frame,100) / 100) + ')'
+      ctx.fillRect(0, 0, CANVAS_X, CANVAS_Y);
+    }
   }
 
   else if (gameState.status === GAMESTATUS_START) {
@@ -341,5 +380,13 @@ function render (gameState, c, ctx) {
     renderStartScreenBackground(ctx)
 
     renderGameOverText(frame, gameState.round, gameState.restarting, gameState.restartCounter, ctx)
+  }
+
+  else if (gameState.status === GAMESTATUS_WIN) {
+    let frame = gameState.frame - 150
+
+    renderStartScreenBackground(ctx)
+
+    renderWinText(frame, gameState.round, gameState.restarting, gameState.restartCounter, ctx)
   }
 }

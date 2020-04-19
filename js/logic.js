@@ -32,7 +32,7 @@ function logic(gameState) {
     gameState.checkStart()
   }
 
-  if (gameState.status === GAMESTATUS_OVER) {
+  if (gameState.status === GAMESTATUS_OVER || gameState.status === GAMESTATUS_WIN) {
     gameState.checkMenu()
   }
 

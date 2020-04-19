@@ -6,6 +6,8 @@ const GAME_HEIGHT = 900
 const GAMESTATUS_START = 0
 const GAMESTATUS_PLAY = 1
 const GAMESTATUS_OVER = 2
+const GAMESTATUS_WIN = 3
+const GAME_LAST_ROUND = 15
 
 //player initialisation
 const PLAYER_SPEED = 200
@@ -42,10 +44,10 @@ const VIRUS_SIZE = 50
 const VIRUS_SPEED = 100
 
 const VIRUS = {
-  koffing: {hp: 5, speed: 70, damage: 5, id: 0},
-  frog: {hp: 10, speed: 70, damage: 10, id: 1},
-  jelly: {hp: 8, speed: 120, damage: 8, id: 2},
-  illuminati: {hp: 40, speed: 60, damage: 50, id: 3}
+  koffing: {hp: 20, speed: 70, damage: 5, id: 0},
+  frog: {hp: 38, speed: 70, damage: 10, id: 1},
+  jelly: {hp: 30, speed: 120, damage: 8, id: 2},
+  illuminati: {hp: 180, speed: 60, damage: 50, id: 3}
 }
 
 const VIRUS_NAMES = ["koffing", "frog", "jelly", "illuminati"]
@@ -65,20 +67,27 @@ const ROUNDS = [
   [20,0,0,0],
   [0,10,0,0],
   [0,0,0,2],
-  [10,5,5,1] //15
+  [7,5,5,1], //15
+  [10,7,5,1], //16
+  [12,8,6,1], //17
+  [0,0,12,4], //18
+  [20,0,0,5], //19
+  [0,0,0,8] //20
+  [50,50,50,50] // Impossible level
 ]
 
 //PROJECTILES
 const PROJECTILES = {
-  sniper: {color: "magenta", name: "sniper", id: 3, damage: 15},
+  sniper: {color: "magenta", name: "sniper", id: 3, damage: 12},
   venom: {color: "green", name: "venom", id: 1, damage: 1},
   splash: {color: "yellow", name: "splash", id: 2, damage: 1},
-  std: {color: "white", name: "std", id: 0, damage: 3}
+  std: {color: "white", name: "std", id: 0, damage: 2}
 }
 const PROJECTILE_SPEED = 200
 const PROJECTILE_ACCELERATION = 200
 const PROJECTILE_MAX_ACCEL = 100
 const PROJECTILE_INTERACTION_DISTANCE = 30
+const PROJECTILE_SPLASH_RANGE = 150
 
 const TIME_BETWEEN_ROUNDS = 24
 

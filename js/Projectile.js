@@ -4,7 +4,7 @@ class Projectile {
     this.y = y
     this.type = type
     this.color = PROJECTILES[type].color
-    this.damage = PROJECTILES[type].damage
+    this.damage = PROJECTILES[type].damage * level
     this.destinationX = x
     this.destinationY = y
     this.originX = x

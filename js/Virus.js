@@ -7,10 +7,15 @@ class Virus {
     this.hp = VIRUS[type].hp
     this.maxHp = VIRUS[type].hp
     this.id = VIRUS[type].id
+    this.venom = 0
   }
 
   move() {
     //if we're far from the heart, just go down
+    if (this.venom > 0) {
+      this.venom--
+      return
+    }
     if (this.y <= VIRUS_HORIZONTAL_LIMIT) {
       this.y += this.speed * (1/FPS)
     }
@@ -32,8 +37,9 @@ class Virus {
       return distance
   }
 
-  doDamage(dmg) {
+  doDamage(dmg, type) {
     this.hp = Math.max(0, this.hp - dmg)
+    if (type === "venom") this.venom += dmg*5
     return this.hp === 0
   }
 }

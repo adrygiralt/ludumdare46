@@ -8,8 +8,9 @@ ctx.imageSmoothingEnabled = false;
 
 //stuff to make the typing thing work
 window.addEventListener('keyup', (e) => {
-   if (DEFENDER_LETTERS.includes(e.key)) {
-   gameState.addToBuffer(e.key)
+  let key = e.key.toLowerCase()
+   if (DEFENDER_LETTERS.includes(key)) {
+   gameState.addToBuffer(key)
  }
 });
 

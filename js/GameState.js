@@ -81,7 +81,7 @@ class GameState {
         }
       }
       if (this.defenders[d].built && this.defenders[d].canShoot(this.frame) && this.viruses.length > 0) {
-          this.createProjectile(this.defenders[d].x, this.defenders[d].y, this.defenders[d].type)
+          this.createProjectile(this.defenders[d].x, this.defenders[d].y, this.defenders[d].type, this.defenders[d].level)
       }
     }
 
@@ -96,8 +96,15 @@ class GameState {
   }
 
   nextFrame() {
+    console.log("HOLA?")
     this.frame++
     this.timeLeft--
+    if (this.round == GAME_LAST_ROUND && this.viruses.length === 0 && this.heartHp > 0 && this.status === GAMESTATUS_PLAY) {
+      this.status = GAMESTATUS_WIN
+      this.frame = 0
+      this.restarting = false
+      return
+    }
     if (this.timeLeft == 0 && this.status === GAMESTATUS_PLAY) {
       this.timeLeft = TIME_BETWEEN_ROUNDS * FPS
       this.round++
@@ -105,8 +112,8 @@ class GameState {
     }
   }
 
-  createProjectile(x, y, type) {
-    let p = new Projectile(x, y, type)
+  createProjectile(x, y, type, level) {
+    let p = new Projectile(x, y, type, level)
     this.projectiles.push(p)
   }
 
@@ -127,8 +134,20 @@ class GameState {
         if ((distanceToNearestVirus > PROJECTILE_INTERACTION_DISTANCE && this.projectiles[p].type !== "sniper")|| (this.projectiles[p].type === "sniper" && this.projectiles[p].counter > 0)) {
           this.projectiles[p].moveTo(this.viruses[nearestVirus].x, this.viruses[nearestVirus].y)
         }
+        else if (this.projectiles[p].type === "splash") {
+          for (let v in this.viruses) {
+            let d = distance(this.viruses[v], this.projectiles[p])
+            if (d < PROJECTILE_SPLASH_RANGE) {
+              let dead = this.viruses[v].doDamage(this.projectiles[p].damage, this.projectiles[p].type)
+              if (dead) {
+                this.viruses.splice(v, 1)
+              }
+            }
+          }
+          this.projectiles.splice(p, 1)
+        }
         else {
-          let dead = this.viruses[nearestVirus].doDamage(this.projectiles[p].damage)
+          let dead = this.viruses[nearestVirus].doDamage(this.projectiles[p].damage, this.projectiles[p].type)
           this.projectiles.splice(p, 1)
           if (dead) {
             this.viruses.splice(nearestVirus, 1)
