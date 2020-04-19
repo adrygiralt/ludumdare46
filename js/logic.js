@@ -12,17 +12,29 @@ function direction() {
 }
 
 function logic(gameState) {
-  //movePlayer
-  let d = direction()
-  gameState.movePlayer(d)
+  if (gameState.status === GAMESTATUS_PLAY){
+    //movePlayer
+    let d = direction()
+    gameState.movePlayer(d)
 
-  if (is_key_down(" ")) {
-    gameState.build()
+    if (is_key_down(" ")) {
+      gameState.build()
+    }
+
+    gameState.defenderStep()
+
+    gameState.moveViruses()
+
+    gameState.moveProjectiles()
   }
 
-  gameState.defenderStep()
+  if (gameState.status === GAMESTATUS_START) {
+    gameState.checkStart()
+  }
 
-  gameState.moveViruses()
+  if (gameState.status === GAMESTATUS_OVER) {
+    gameState.checkMenu()
+  }
 
-  gameState.frame++
+  gameState.nextFrame()
 }

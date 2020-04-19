@@ -2,9 +2,11 @@ class Virus {
   constructor(x, y, type) {
     this.x = x
     this.y = y
-    //TODO
-    this.speed = VIRUS_SPEED
-    this.damage = 20
+    this.speed = VIRUS[type].speed
+    this.damage = VIRUS[type].damage
+    this.hp = VIRUS[type].hp
+    this.maxHp = VIRUS[type].hp
+    this.id = VIRUS[type].id
   }
 
   move() {
@@ -28,5 +30,10 @@ class Virus {
       let distance = Math.sqrt(xDiff*xDiff + yDiff*yDiff)
 
       return distance
+  }
+
+  doDamage(dmg) {
+    this.hp = Math.max(0, this.hp - dmg)
+    return this.hp === 0
   }
 }

@@ -5,6 +5,10 @@ class Defender {
     this.color = DEFENDERS[name].color
     this.built = false
     this.id = DEFENDERS[name].id
+    this.type = DEFENDERS[name].name
+    this.delay = DEFENDERS[name].delay
+    this.offset = DEFENDERS[name].offset
+    this.level = 1
   }
 
   gotLetter(c) {
@@ -25,5 +29,12 @@ class Defender {
     this.level += 1
     this.index = 0
     this.letters = randomLetters (this.level)
+  }
+
+  canShoot(frame) {
+    if ((frame+this.offset)%this.delay == 0) {
+      return true
+    }
+    return false
   }
 }
