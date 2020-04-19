@@ -92,11 +92,9 @@ class GameState {
 
   addToBuffer(c) {
     this.buffer += c
-    console.log(this.buffer)
   }
 
   nextFrame() {
-    console.log("HOLA?")
     this.frame++
     this.timeLeft--
     if (this.round == GAME_LAST_ROUND && this.viruses.length === 0 && this.heartHp > 0 && this.status === GAMESTATUS_PLAY) {
@@ -158,7 +156,7 @@ class GameState {
   }
 
   spawnRound() {
-    console.log("Spawning Round: " + this.round)
+    //console.log("Spawning Round: " + this.round)
     let roundVirus = ROUNDS[this.round-1]
     for (let i = 0; i < 4; i++) {
       for (let j = 0; j < roundVirus[i]; j++) {
@@ -176,7 +174,7 @@ class GameState {
     this.status = GAMESTATUS_OVER
     this.frame = 0
     this.restarting = false
-    console.log("GAME OVER")
+    //console.log("GAME OVER")
   }
 
   checkStart() {
