@@ -17,7 +17,7 @@ class Projectile {
   this.destinationY = y
     if (this.type === "sniper"){
       this.counter--
-      console.log(this.counter)
+      //console.log(this.counter)
     }
     else {
       let d = distance(this.x, this.y, x, y)
